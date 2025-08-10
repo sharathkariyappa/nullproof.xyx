@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   LayoutDashboard, 
   Wallet, 
@@ -12,6 +12,17 @@ import {
   Menu,
   X
 } from "lucide-react";
+
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (data: any) => void) => void;
+      removeListener: (event: string, callback: (data: any) => void) => void;
+      isMetaMask?: boolean;
+    };
+  }
+}
 
 const sidebarItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -28,6 +39,113 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("/dashboard");
+  const [walletAddress, setWalletAddress] = useState("");
+  const [walletBalance, setWalletBalance] = useState("0");
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [walletDropdownOpen, setWalletDropdownOpen] = useState(false);
+
+
+  useEffect(() => {
+    checkWalletConnection();
+  }, []);
+
+  const checkWalletConnection = async () => {
+    if (typeof window !== 'undefined' && window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          setWalletConnected(true);
+          setWalletAddress(accounts[0]);
+          await getWalletBalance(accounts[0]);
+        }
+      } catch (error) {
+        console.log('Error checking wallet connection:', error);
+      }
+    }
+  };
+
+  const connectWallet = async () => {
+    if (typeof window !== 'undefined' && window.ethereum) {
+      setIsConnecting(true);
+      try {
+        // Request account access
+        const accounts = await window.ethereum.request({ 
+          method: 'eth_requestAccounts' 
+        });
+        
+        if (accounts.length > 0) {
+          setWalletConnected(true);
+          setWalletAddress(accounts[0]);
+          await getWalletBalance(accounts[0]);
+          
+          // Listen for account changes
+          window.ethereum.on('accountsChanged', handleAccountsChanged);
+          window.ethereum.on('chainChanged', handleChainChanged);
+        }
+      } catch (error) {
+        console.error('Error connecting wallet:', error);
+        if (error.code === 4001) {
+          alert('Please connect to MetaMask.');
+        } else {
+          alert('Error connecting wallet. Please try again.');
+        }
+      } finally {
+        setIsConnecting(false);
+      }
+    } else {
+      alert('MetaMask is not installed. Please install MetaMask and try again.');
+      window.open('https://metamask.io/download/', '_blank');
+    }
+  };
+
+  const getWalletBalance = async (address) => {
+    try {
+      if (window.ethereum) {
+        const balance = await window.ethereum.request({
+          method: 'eth_getBalance',
+          params: [address, 'latest']
+        });
+        // Convert from wei to ETH
+        const ethBalance = parseInt(balance, 16) / Math.pow(10, 18);
+        setWalletBalance(ethBalance.toFixed(4));
+      }
+    } catch (error) {
+      console.error('Error getting balance:', error);
+    }
+  };
+
+  const handleAccountsChanged = (accounts) => {
+    if (accounts.length === 0) {
+      // User disconnected wallet
+      disconnectWallet();
+    } else {
+      // User switched accounts
+      setWalletAddress(accounts[0]);
+      getWalletBalance(accounts[0]);
+    }
+  };
+
+  const handleChainChanged = (chainId) => {
+    // Reload the page when chain changes
+    window.location.reload();
+  };
+
+  const disconnectWallet = () => {
+    setWalletConnected(false);
+    setWalletAddress("");
+    setWalletBalance("0");
+    
+    // Remove event listeners
+    if (window.ethereum) {
+      window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      window.ethereum.removeListener('chainChanged', handleChainChanged);
+    }
+  };
+
+  const formatAddress = (address) => {
+    if (!address) return "";
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+  };
 
   const isActive = (path) => activeItem === path;
 
@@ -114,32 +232,6 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-
-          {/* User Profile Section */}
-          <div className={`mt-auto p-4 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'} ${sidebarCollapsed ? 'px-2' : 'px-4'} transition-all duration-300`}>
-            {!sidebarCollapsed ? (
-              <div className={`flex items-center gap-3 p-3 rounded-xl ${isDark ? 'bg-gray-800/50' : 'bg-gray-100'} border ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-                  <span className="text-xs font-semibold text-white">ZK</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Identity User</span>
-                  <span className="text-xs text-gray-500">Verified</span>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-center relative group">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-                  <span className="text-sm font-semibold text-white">ZK</span>
-                </div>
-                {/* Tooltip for collapsed user profile */}
-                <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 border border-gray-700">
-                  Identity User - Verified
-                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-800 rotate-45 border-l border-b border-gray-700"></div>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 
@@ -193,15 +285,76 @@ const Dashboard = () => {
             </button>
             
             {/* Wallet Connection */}
-            <button
-              onClick={() => setWalletConnected(!walletConnected)}
-              className={walletConnected 
-                ? `${isDark ? 'bg-gray-800/50 border-purple-500/40 text-purple-400 hover:bg-purple-500/10' : 'bg-gray-100 border-purple-500/40 text-purple-600 hover:bg-purple-50'} font-medium px-6 py-3 rounded-xl border transition-all` 
-                : "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all"
-              }
-            >
-              {walletConnected ? "Wallet Connected" : "Connect Wallet"}
-            </button>
+            {walletConnected ? (
+              <div className="flex items-center gap-3">
+                <div className={`px-4 py-2 rounded-lg ${isDark ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-100 border-gray-200'} border`}>
+                  <div className="text-xs text-gray-500">Balance</div>
+                  <div className="text-sm font-semibold">{walletBalance} ETH</div>
+                </div>
+                <div className="relative">
+                  <button 
+                    onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
+                    className={`${isDark ? 'bg-gray-800/50 border-purple-500/40 text-purple-400 hover:bg-purple-500/10' : 'bg-gray-100 border-purple-500/40 text-purple-600 hover:bg-purple-50'} font-medium px-4 py-3 rounded-xl border transition-all flex items-center gap-2`}
+                  >
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="hidden sm:inline">{formatAddress(walletAddress)}</span>
+                    <span className="sm:hidden">Connected</span>
+                  </button>
+                  
+                  {/* Wallet dropdown */}
+                  {walletDropdownOpen && (
+                    <>
+                      {/* Backdrop to close dropdown */}
+                      <div 
+                        className="fixed inset-0 z-40"
+                        onClick={() => setWalletDropdownOpen(false)}
+                      />
+                      
+                      {/* Dropdown content */}
+                      <div className={`absolute right-0 top-full mt-2 px-4 py-3 rounded-lg text-sm z-50 ${
+                        isDark 
+                          ? 'bg-gray-800 text-white border border-gray-700 shadow-2xl' 
+                          : 'bg-white text-gray-900 border border-gray-200 shadow-xl'
+                      }`}>
+                        <div className="space-y-3">
+                          <button 
+                            onClick={() => {
+                              disconnectWallet();
+                              setWalletDropdownOpen(false);
+                            }}
+                            className={`w-full text-left text-xs px-2 py-2 rounded transition-colors ${
+                              isDark 
+                                ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10' 
+                                : 'text-red-600 hover:text-red-700 hover:bg-red-50'
+                            }`}
+                          >
+                            Disconnect
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={connectWallet}
+                disabled={isConnecting}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all flex items-center gap-2"
+              >
+                {isConnecting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Connecting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Wallet className="w-4 h-4" />
+                    <span>Connect Wallet</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </header>
 
