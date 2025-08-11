@@ -8,7 +8,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: "Home", href: "/" },
     { name: "Whitepaper", href: "/NullProof_Whitepaper.pdf", external: true },
   ];
 
@@ -44,35 +43,36 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-glass-bg backdrop-blur-xl border-b border-glass-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent border-b border-glass-border">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img
-              src="/logo.png"
-              alt="Nullproof Logo"
-              className="w-8 h-8 rounded-full object-cover shadow-glow"
-            />
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
+              <img
+                src="/logo.png"
+                alt="Nullproof Logo"
+                className="w-8 h-8 mr-2 rounded-full object-cover"
+              />
+            </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               NullProof
             </span>
-          </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => renderNavLink(item))}
-          </nav>
-
-          {/* CTA Buttons - Desktop */}
-          <div className="hidden md:flex items-center gap-4">
             <Button
               onClick={handleLaunchApp}
               className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground font-semibold shadow-glow"
             >
               Launch App
             </Button>
-          </div>
+          </nav>
 
           {/* Mobile Menu Button */}
           <button

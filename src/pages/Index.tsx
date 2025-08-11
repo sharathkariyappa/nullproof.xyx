@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+// import Hero from "@/components/Hero";
 import Partners from "@/components/Partners";
 import HowItWorks from "@/components/HowItWorks";
 import EarlyAccess from "@/components/EarlyAccess";
@@ -9,9 +9,9 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       <Header />
-      <Hero />
+      {/* <Hero /> */}
       <Partners />
       <HowItWorks />
       <EarlyAccess />

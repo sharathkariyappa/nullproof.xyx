@@ -72,7 +72,7 @@ const Hero = () => {
                 { icon: Shield, text: "Privacy First", desc: "Zero-knowledge proofs" },
                 { icon: Zap, text: "AI Powered", desc: "Intelligent verification" },
                 { icon: Eye, text: "Fully Verifiable", desc: "Transparent & trustless" },
-                { icon: Lock, text: "Ultra Secure", desc: "Military-grade encryption" }
+                { icon: Lock, text: "Anywhere Access", desc: "Verifiable Crendentials" }
               ].map((feature, index) => (
                 <div 
                   key={index} 

@@ -16,20 +16,20 @@
     --popover: 220 25% 12%;
     --popover-foreground: 210 40% 98%;
 
-    /* Primary Brand Colors - Vibrant Aqua & Blue Glow */
-    --primary: 174 100% 39%; /* Bright Aqua */
+    /* Primary Brand Colors - Bright Aqua */
+    --primary: 174 100% 39%; /* Bright Aqua #00FFD9 */
     --primary-foreground: 210 40% 98%;
-    --primary-glow: 174 100% 65%;
+    --primary-glow: 174 100% 65%; /* Brighter Aqua */
 
-    /* Secondary Colors - Matching Aqua tone */
-    --secondary: 174 100% 39%;
+    /* Secondary Colors - Blue gradient tones */
+    --secondary: 200 100% 50%; /* Medium Blue #00C8FF */
     --secondary-foreground: 210 40% 95%;
 
     --muted: 220 20% 18%;
     --muted-foreground: 215 15% 65%;
 
-    /* Accent Colors - Soft Purple */
-    --accent: 270 75% 65%;
+    /* Accent Colors - Deep Blue (replacing purple) */
+    --accent: 210 100% 50%; /* Deep Blue #0080FF */
     --accent-foreground: 210 40% 98%;
 
     /* Destructive */
@@ -39,7 +39,7 @@
     /* Borders & Inputs */
     --border: 220 30% 25%;
     --input: 220 25% 15%;
-    --ring: 250 84% 70%;
+    --ring: 174 100% 50%; /* Changed from purple to bright aqua */
 
     /* Radius */
     --radius: 1rem;
@@ -49,16 +49,16 @@
     --glass-border: hsl(220 30% 25% / 0.4);
     --glass-hover: hsl(220 20% 20% / 0.75);
 
-    /* Enhanced Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(174 100% 39%), hsl(270 75% 65%));
+    /* Enhanced Gradients - Updated to match your palette */
+    --gradient-primary: linear-gradient(135deg, hsl(174 100% 39%), hsl(200 100% 50%), hsl(210 100% 50%));
     --gradient-card: linear-gradient(145deg, hsl(220 20% 12% / 0.8), hsl(220 25% 15% / 0.9));
     --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(174 100% 39% / 0.15) 0%, transparent 100%),
-                     radial-gradient(ellipse 60% 80% at 80% 50%, hsl(270 75% 65% / 0.1) 0%, transparent 100%);
+                     radial-gradient(ellipse 60% 80% at 80% 50%, hsl(200 100% 50% / 0.1) 0%, transparent 100%);
 
-    /* Shadows */
+    /* Shadows - Updated to aqua/blue theme */
     --shadow-glow: 0 0 50px hsl(174 100% 65% / 0.3);
     --shadow-card: 0 8px 32px hsl(220 20% 5% / 0.5);
-    --shadow-accent: 0 0 30px hsl(270 75% 65% / 0.3);
+    --shadow-accent: 0 0 30px hsl(210 100% 50% / 0.3); /* Changed from purple to blue */
 
     /* Sidebar */
     --sidebar-background: hsl(220 20% 10% / 0.85);
@@ -85,13 +85,13 @@
     --primary: 174 100% 39%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 174 100% 39%;
+    --secondary: 200 100% 50%; /* Updated to blue */
     --secondary-foreground: 210 40% 98%;
 
     --muted: 220 20% 15%;
     --muted-foreground: 215 15% 65%;
 
-    --accent: 270 75% 65%;
+    --accent: 210 100% 50%; /* Changed from purple to deep blue */
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 75% 60%;
@@ -99,7 +99,7 @@
 
     --border: 220 30% 25%;
     --input: 220 25% 15%;
-    --ring: 250 84% 70%;
+    --ring: 174 100% 50%; /* Changed from purple to aqua */
   }
 }
 
@@ -112,6 +112,38 @@
     @apply bg-background text-foreground;
     background-image:
       radial-gradient(circle at 20% 20%, hsl(174 100% 39% / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, hsl(270 75% 65% / 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 80% 80%, hsl(210 100% 50% / 0.1) 0%, transparent 50%); /* Changed purple to deep blue */
   }
+}
+
+/* Additional utility classes for the gradient palette */
+@layer utilities {
+  .bg-gradient-nullproof {
+    background: linear-gradient(135deg, #00FFD9 0%, #00C8FF 50%, #0080FF 100%);
+  }
+  
+  .text-gradient-nullproof {
+    background: linear-gradient(135deg, #00FFD9 0%, #00C8FF 50%, #0080FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glow-aqua {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 217, 0.6));
+  }
+  
+  .glow-aqua-intense {
+    filter: drop-shadow(0 0 40px rgba(0, 255, 217, 1));
+  }
+}
+
+/* Animation for title glow effect */
+@keyframes titleGlow {
+  0% { filter: drop-shadow(0 0 20px rgba(0, 255, 217, 0.6)); }
+  100% { filter: drop-shadow(0 0 40px rgba(0, 255, 217, 1)); }
+}
+
+.animate-title-glow {
+  animation: titleGlow 3s ease-in-out infinite alternate;
 }

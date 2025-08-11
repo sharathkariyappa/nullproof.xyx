@@ -10,7 +10,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-card/30 backdrop-blur-xl border-t border-border/50">
+    <footer className="relative bg-transparent  border-t border-border/50">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">

@@ -78,7 +78,7 @@ const Roadmap = () => {
 
   return (
     <section className="py-20 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsl(195_100%_60%_/_0.1)_0%,transparent_70%)]"></div>
+      <div className="absolute inset-0 bg-transparent"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in">

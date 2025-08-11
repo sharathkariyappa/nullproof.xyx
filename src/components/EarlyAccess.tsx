@@ -35,8 +35,8 @@ const EarlyAccess = () => {
   return (
     <section className="py-20 relative">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,hsl(260_100%_65%_/_0.1)_0%,transparent_50%,hsl(195_100%_60%_/_0.1)_100%)]"></div>
+      <div className="absolute inset-0 bg-transparent"></div>
+      <div className="absolute inset-0 bg-transparent"></div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
         <Card className="bg-glass-bg backdrop-blur-xl border border-glass-border shadow-2xl animate-fade-in">
