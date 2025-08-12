@@ -12,7 +12,7 @@ const Header = () => {
   ];
 
   const handleLaunchApp = () => {
-    navigate("/dashboard");
+    navigate("/");
   };
 
   const renderNavLink = (item) => {
