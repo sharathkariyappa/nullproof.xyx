@@ -6,11 +6,13 @@ import { Mail, ArrowRight, CheckCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const EarlyAccess = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [email, setEmail] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !walletAddress) {
@@ -22,19 +24,35 @@ const EarlyAccess = () => {
       return;
     }
 
-    setIsSubmitted(true);
-    toast({
-      title: "Success!",
-      description: "You've been added to our early access list.",
-    });
+    setIsLoading(true);
+    try {
+      await fetch(`${backendUrl}/api/early-access`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, walletAddress })
+      });
+    
+      setIsSubmitted(true);
+      toast({
+        title: "Success!",
+        description: "You've been added to our early access list.",
+      });
 
-    setEmail("");
-    setWalletAddress("");
+      setEmail("");
+      setWalletAddress("");
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.response?.data?.error || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section className="py-20 relative">
-      {/* Background layers */}
       <div className="absolute inset-0 bg-transparent"></div>
       <div className="absolute inset-0 bg-transparent"></div>
 
@@ -63,34 +81,38 @@ const EarlyAccess = () => {
             {/* Form / Success State */}
             {!isSubmitted ? (
               <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto w-full"
-            >
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 min-w-[220px] bg-input/50 border-border/50 focus:border-primary/50 backdrop-blur-xl"
-                required
-              />
-              <Input
-                type="text"
-                placeholder="Enter your wallet address"
-                value={walletAddress}
-                onChange={(e) => setWalletAddress(e.target.value)}
-                className="flex-1 min-w-[220px] bg-input/50 border-border/50 focus:border-primary/50 backdrop-blur-xl"
-                required
-              />
-              <Button
-                type="submit"
-                className="flex-none bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground font-semibold px-8 whitespace-nowrap group"
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto w-full"
               >
-                Join Waitlist
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </form>
-            
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 min-w-[220px] bg-input/50 border-border/50 focus:border-primary/50 backdrop-blur-xl"
+                  required
+                  disabled={isLoading}
+                />
+                <Input
+                  type="text"
+                  placeholder="Enter your wallet address"
+                  value={walletAddress}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                  className="flex-1 min-w-[220px] bg-input/50 border-border/50 focus:border-primary/50 backdrop-blur-xl"
+                  required
+                  disabled={isLoading}
+                />
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex-none bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground font-semibold px-8 whitespace-nowrap group"
+                >
+                  {isLoading ? "Joining..." : "Join Waitlist"}
+                  {!isLoading && (
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  )}
+                </Button>
+              </form>
             ) : (
               <div className="flex items-center justify-center gap-3 text-accent animate-slide-up">
                 <CheckCircle className="w-6 h-6" />

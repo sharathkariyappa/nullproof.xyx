@@ -8,11 +8,16 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: "Whitepaper", href: "/NullProof_Whitepaper.pdf", external: true },
+    { 
+      name: "Whitepaper", 
+      href: "/NullProof_Whitepaper.pdf", 
+      external: true, 
+      download: true 
+    },
   ];
 
   const handleLaunchApp = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const renderNavLink = (item) => {
@@ -21,8 +26,7 @@ const Header = () => {
         <a
           key={item.name}
           href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          {...(item.download ? { download: "NullProof_Whitepaper.pdf" } : {})}
           className="text-muted-foreground hover:text-foreground transition-colors font-medium relative group"
         >
           {item.name}
