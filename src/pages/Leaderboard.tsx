@@ -48,7 +48,10 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
       const res = await fetch(`${backendUrl}/api/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ targetWallet, likerWallet: myWallet })
+        body: JSON.stringify({ 
+          targetWallet: targetWallet.toLowerCase(), 
+          likerWallet: myWallet.toLowerCase() 
+        })
       });
 
       if (res.ok) {
@@ -126,7 +129,7 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
                 className="flex items-center gap-1 text-pink-500 hover:text-pink-400 transition"
               >
                 <Heart className="w-4 h-4 fill-pink-500" />
-                <span>{likes[entry.walletAddress] || 0}</span>
+                <span>{likes[entry.walletAddress?.toLowerCase()] || 0}</span>
               </button>
 
               {/* Share */}
