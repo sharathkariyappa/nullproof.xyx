@@ -196,7 +196,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
       if (!res.ok) throw new Error("rekt by api... probably rugged 📉");
 
       const data = await res.json();
-      const userScore = data.model.score;
+      const userScore = data.score;
       setScore(userScore);
       
       // Update leaderboard with new score
