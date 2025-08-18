@@ -66,7 +66,7 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
   };
 
   const shareScore = (username: string, score: number) => {
-    const text = `🚀 Hey My Degen Score: ${score}/100 on nullproof_xyz Can you beat me? 🏆
+    const text = `🚀 Hey My Degen Score: ${score}/100 on @nullproof_xyz Can you beat me? 🏆
   
   Come to https://nullproof.xyz and like scores in the dashboard to earn rewards! 🔥`;
   
