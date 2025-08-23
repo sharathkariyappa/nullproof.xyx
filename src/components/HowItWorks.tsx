@@ -50,7 +50,7 @@ const HowItWorks = () => {
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-8 animate-slide-up">
           {steps.map((step, index) => (
-            <Card key={index} className="relative bg-glass-bg backdrop-blur-xl border border-glass-border hover:border-primary/30 transition-all duration-300 group overflow-hidden">
+            <Card key={index} className="relative bg-transparent border border-glass-border hover:border-primary/30 transition-all duration-300 group overflow-hidden">
               {/* Step Number */}
               <div className="absolute top-4 right-4 text-6xl font-bold text-primary/20 group-hover:text-primary/30 transition-colors">
                 {step.step}

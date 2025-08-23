@@ -100,14 +100,14 @@ const Roadmap = () => {
               <div key={index} className={`relative grid lg:grid-cols-2 gap-8 items-center ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
                 {/* Timeline Dot */}
                 <div className="hidden lg:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                  <div className="w-12 h-12 bg-glass-bg backdrop-blur-xl border-2 border-primary rounded-full flex items-center justify-center shadow-glow">
+                  <div className="w-12 h-12 bg-transparent border-2 border-primary rounded-full flex items-center justify-center shadow-glow">
                     {getStatusIcon(phase.status)}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
-                  <Card className="bg-glass-bg backdrop-blur-xl border border-glass-border hover:border-primary/30 transition-all duration-300 group">
+                  <Card className="bg-transparent border border-glass-border hover:border-primary/30 transition-all duration-300 group">
                     <CardContent className="p-8">
                       <div className={`flex items-center gap-4 mb-6 ${index % 2 === 0 ? 'lg:justify-end' : 'lg:justify-start'}`}>
                         <div className="lg:hidden">

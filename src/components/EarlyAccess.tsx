@@ -57,11 +57,11 @@ const EarlyAccess = () => {
       <div className="absolute inset-0 bg-transparent"></div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <Card className="bg-glass-bg backdrop-blur-xl border border-glass-border shadow-2xl animate-fade-in">
+        <Card className="bg-transparent border border-glass-border shadow-2xl animate-fade-in">
           <CardContent className="p-12">
             {/* Icon + Title */}
             <div className="mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-glow animate-glow">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-glow">
                 <Mail className="w-8 h-8 text-primary-foreground" />
               </div>
 

@@ -53,7 +53,7 @@ const Header = () => {
           {/* Logo & Brand */}
           <div
             onClick={() => navigate("/")}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer"
+            className="flex items-center gap-3 transition-opacity cursor-pointer"
           >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
               <img
@@ -72,7 +72,7 @@ const Header = () => {
             {navItems.map((item) => renderNavLink(item))}
             <Button
               onClick={handleLaunchApp}
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground font-semibold shadow-glow"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground font-semibold"
             >
               Launch App
             </Button>

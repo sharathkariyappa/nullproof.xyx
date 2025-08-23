@@ -5,6 +5,7 @@ import EarlyAccess from "@/components/EarlyAccess";
 import Tokenomics from "@/components/Tokenomics";
 import Roadmap from "@/components/Roadmap";
 import Footer from "@/components/Footer";
+import FAQPage from "@/components/Faq";
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <EarlyAccess />
       <Tokenomics />
       <Roadmap />
+      <FAQPage />
       <Footer />
     </div>
   );

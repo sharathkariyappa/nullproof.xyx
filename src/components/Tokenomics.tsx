@@ -50,7 +50,7 @@ const Tokenomics = () => {
         </div>
 
         <Tabs defaultValue="utility" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-glass-bg backdrop-blur-xl border border-glass-border">
+          <TabsList className="grid w-full grid-cols-2 bg-transparent border border-glass-border">
             <TabsTrigger value="utility" className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary">
               Token Utility
             </TabsTrigger>
@@ -62,7 +62,7 @@ const Tokenomics = () => {
           <TabsContent value="utility" className="mt-8">
             <div className="grid md:grid-cols-2 gap-8 animate-slide-up">
               {tokenUtilities.map((utility, index) => (
-                <Card key={index} className="bg-glass-bg backdrop-blur-xl border border-glass-border hover:border-primary/30 transition-all duration-300 group">
+                <Card key={index} className="bg-transparent border border-glass-border hover:border-primary/30 transition-all duration-300 group">
                   <CardContent className="p-8">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

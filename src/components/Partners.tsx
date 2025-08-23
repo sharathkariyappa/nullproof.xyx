@@ -18,6 +18,14 @@ const Partners = () => {
       badge: "Launching Platform",
       impact: "Genesis protocol vault",
     },
+    {
+      name: "Base Blockchain",
+      description:
+        "Base is a secure, low-cost, developer-friendly Ethereum L2 designed to bring the next billion users onchain.",
+      logo: "/base.png",
+      badge: "Ecosystem Partner",
+      impact: "Powering scalable, low-cost transactions",
+    },
   ];
 
   return (
@@ -35,30 +43,30 @@ const Partners = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up">
           {partners.map((partner, index) => (
             <Card
               key={index}
-              className="bg-glass-bg backdrop-blur-xl border border-glass-border hover:border-primary/30 transition-all duration-300 group"
+              className="bg-transparent border border-glass-border hover:border-primary/30 transition-all duration-300 group h-full"
             >
-              <CardContent className="p-6 flex flex-col gap-4 items-center text-center">
-                <div className="w-16 h-16 flex items-center justify-center rounded-full overflow-hidden">
+              <CardContent className="p-4 flex flex-col gap-3 items-center text-center">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full overflow-hidden">
                   <img
                     src={partner.logo}
                     alt={`${partner.name} logo`}
                     className="object-contain"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground">
+                <h3 className="text-lg font-semibold text-foreground">
                   {partner.name}
                 </h3>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {partner.badge}
                 </span>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {partner.description}
                 </p>
-                <div className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full font-light">
+                <div className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full font-light">
                   {partner.impact}
                 </div>
               </CardContent>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Null Proof Luxury Web3xAI Design System - Transparent & Bright */
+/* Null Proof Luxury Web3xAI Design System - Single Aqua Color */
 
 @layer base {
   :root {
@@ -16,20 +16,20 @@
     --popover: 220 25% 12%;
     --popover-foreground: 210 40% 98%;
 
-    /* Primary Brand Colors - Bright Aqua */
-    --primary: 174 100% 39%; /* Bright Aqua #00FFD9 */
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 174 100% 65%; /* Brighter Aqua */
+    /* Primary Brand Colors - Single Bright Aqua */
+    --primary: 174 60% 35%;
+    --primary-foreground: 210 10% 10%;
+    --primary-glow: 174 100% 65%;
 
-    /* Secondary Colors - Blue gradient tones */
-    --secondary: 200 100% 50%; /* Medium Blue #00C8FF */
+    /* Secondary Colors - Aqua variations */
+    --secondary: 174 100% 45%;
     --secondary-foreground: 210 40% 95%;
 
     --muted: 220 20% 18%;
     --muted-foreground: 215 15% 65%;
 
-    /* Accent Colors - Deep Blue (replacing purple) */
-    --accent: 210 100% 50%; /* Deep Blue #0080FF */
+    /* Accent Colors - Aqua variation */
+    --accent: 174 100% 55%;
     --accent-foreground: 210 40% 98%;
 
     /* Destructive */
@@ -39,7 +39,7 @@
     /* Borders & Inputs */
     --border: 220 30% 25%;
     --input: 220 25% 15%;
-    --ring: 174 100% 50%; /* Changed from purple to bright aqua */
+    --ring: 174 100% 50%;
 
     /* Radius */
     --radius: 1rem;
@@ -49,26 +49,24 @@
     --glass-border: hsl(220 30% 25% / 0.4);
     --glass-hover: hsl(220 20% 20% / 0.75);
 
-    /* Enhanced Gradients - Updated to match your palette */
-    --gradient-primary: linear-gradient(135deg, hsl(174 100% 39%), hsl(200 100% 50%), hsl(210 100% 50%));
+    /* Enhanced Gradients - Single Aqua variations */
+    --gradient-primary: linear-gradient(135deg, hsl(174 100% 45%), hsl(174 100% 50%), hsl(174 100% 55%));
     --gradient-card: linear-gradient(145deg, hsl(220 20% 12% / 0.8), hsl(220 25% 15% / 0.9));
-    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(174 100% 39% / 0.15) 0%, transparent 100%),
-                     radial-gradient(ellipse 60% 80% at 80% 50%, hsl(200 100% 50% / 0.1) 0%, transparent 100%);
+    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(174 100% 50% / 0.15) 0%, transparent 100%),
+                     radial-gradient(ellipse 60% 80% at 80% 50%, hsl(174 100% 45% / 0.1) 0%, transparent 100%);
 
-    /* Shadows - Updated to aqua/blue theme */
-    --shadow-glow: 0 0 50px hsl(174 100% 65% / 0.3);
+    /* Shadows - No glow effects */
     --shadow-card: 0 8px 32px hsl(220 20% 5% / 0.5);
-    --shadow-accent: 0 0 30px hsl(210 100% 50% / 0.3); /* Changed from purple to blue */
 
     /* Sidebar */
     --sidebar-background: hsl(220 20% 10% / 0.85);
     --sidebar-foreground: 210 40% 95%;
-    --sidebar-primary: hsl(174 100% 39%);
+    --sidebar-primary: hsl(174 100% 50%);
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: hsl(220 20% 15%);
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: hsl(220 30% 25%);
-    --sidebar-ring: hsl(174 100% 39%);
+    --sidebar-ring: hsl(174 100% 50%);
   }
 
   .dark {
@@ -82,16 +80,16 @@
     --popover: 220 20% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 174 100% 39%;
+    --primary: 174 100% 50%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 200 100% 50%; /* Updated to blue */
+    --secondary: 174 100% 45%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 220 20% 15%;
     --muted-foreground: 215 15% 65%;
 
-    --accent: 210 100% 50%; /* Changed from purple to deep blue */
+    --accent: 174 100% 55%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 75% 60%;
@@ -99,7 +97,7 @@
 
     --border: 220 30% 25%;
     --input: 220 25% 15%;
-    --ring: 174 100% 50%; /* Changed from purple to aqua */
+    --ring: 174 100% 50%;
   }
 }
 
@@ -111,39 +109,21 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at 20% 20%, hsl(174 100% 39% / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, hsl(210 100% 50% / 0.1) 0%, transparent 50%); /* Changed purple to deep blue */
+      radial-gradient(circle at 20% 20%, hsl(174 100% 50% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(174 100% 45% / 0.1) 0%, transparent 50%);
   }
 }
 
-/* Additional utility classes for the gradient palette */
+/* Additional utility classes for the single aqua palette */
 @layer utilities {
   .bg-gradient-nullproof {
-    background: linear-gradient(135deg, #00FFD9 0%, #00C8FF 50%, #0080FF 100%);
+    background: linear-gradient(135deg, rgba(0, 255, 217, 0.8) 0%, rgba(0, 255, 217, 1) 50%, rgba(0, 255, 217, 0.9) 100%);
   }
   
   .text-gradient-nullproof {
-    background: linear-gradient(135deg, #00FFD9 0%, #00C8FF 50%, #0080FF 100%);
+    background: linear-gradient(135deg, rgba(0, 255, 217, 0.8) 0%, rgba(0, 255, 217, 1) 50%, rgba(0, 255, 217, 0.9) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  .glow-aqua {
-    filter: drop-shadow(0 0 20px rgba(0, 255, 217, 0.6));
-  }
-  
-  .glow-aqua-intense {
-    filter: drop-shadow(0 0 40px rgba(0, 255, 217, 1));
-  }
-}
-
-/* Animation for title glow effect */
-@keyframes titleGlow {
-  0% { filter: drop-shadow(0 0 20px rgba(0, 255, 217, 0.6)); }
-  100% { filter: drop-shadow(0 0 40px rgba(0, 255, 217, 1)); }
-}
-
-.animate-title-glow {
-  animation: titleGlow 3s ease-in-out infinite alternate;
 }
