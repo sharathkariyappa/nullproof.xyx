@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
 export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean; myWallet: string }) {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [likes, setLikes] = useState<Record<string, number>>({});
@@ -20,8 +21,6 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
       if (lbRes.ok && likesRes.ok) {
         const leaderboardData = await lbRes.json();
         const likesData = await likesRes.json();
-
-        // Set both states
         setLeaderboard(leaderboardData);
         setLikes(likesData);
       }
@@ -36,11 +35,11 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
       return;
     }
     if (targetWallet === myWallet) {
-        toast({
-            title: "Not allowed",
-            description: "You can not like yourself.",
-            variant: "destructive",
-          });
+      toast({
+        title: "Not allowed",
+        description: "You can not like yourself.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -48,9 +47,9 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
       const res = await fetch(`${backendUrl}/api/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          targetWallet: targetWallet.toLowerCase(), 
-          likerWallet: myWallet.toLowerCase() 
+        body: JSON.stringify({
+          targetWallet: targetWallet.toLowerCase(),
+          likerWallet: myWallet.toLowerCase()
         })
       });
 
@@ -69,46 +68,59 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
     const text = `🚀 Hey My Degen Score: ${score}/100 on @nullproof_xyz Can you beat me? 🏆
   
   Come to https://nullproof.xyz and like scores in the dashboard to earn rewards! 🔥`;
-  
+
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
       "_blank"
     );
   };
-  
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-gradient-nullproof animate-title-glow text-center">
-        🏆 Degen Leaderboard
+      {/* Title */}
+      <h1
+        className={`text-3xl font-bold text-center ${
+          isDark ? "text-gradient-nullproof" : "text-black"
+        }`}
+      >
+        Degen Leaderboard
       </h1>
 
+      {/* Leaderboard Entries */}
       <div className="space-y-3">
         {leaderboard?.slice(0, 10)?.map((entry, index) => (
           <div
             key={entry.wallet}
             className={`flex items-center justify-between p-4 rounded-lg shadow-md border transition hover:scale-[1.02] ${
-              isDark ? "bg-[var(--glass-bg)] border-[var(--glass-border)]" : "bg-white border-gray-200"
+              isDark
+                ? "bg-[var(--glass-bg)] border border-[var(--glass-border)]"
+                : "bg-white border border-gray-200"
             }`}
           >
-            {/* Rank */}
+            {/* Rank + Avatar */}
             <div className="flex items-center gap-3">
               <span
                 className={`text-lg font-bold ${
-                  index < 3 ? "text-yellow-400" : isDark ? "text-gray-200" : "text-gray-700"
+                  index < 3
+                    ? "text-yellow-400"
+                    : isDark
+                    ? "text-gray-200"
+                    : "text-gray-700"
                 }`}
               >
                 #{index + 1}
               </span>
-              {/* Avatar */}
               <img
                 src={entry.avatar || "/default-avatar.png"}
                 alt={entry.username}
                 className="w-10 h-10 rounded-full border border-[var(--primary)]"
               />
-              {/* Username + Wallet */}
               <div>
-                <p className={`text-sm font-semibold truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                <p
+                  className={`text-sm font-semibold truncate ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   {entry.username || "Unknown"}
                 </p>
                 <p className="text-xs text-gray-500 truncate">
@@ -121,9 +133,9 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
 
             {/* Score + Actions */}
             <div className="flex items-center gap-4">
-              <span className="text-lg font-bold text-emerald-400">{entry.score}</span>
-
-              {/* Like */}
+              <span className="text-lg font-bold text-emerald-400">
+                {entry.score}
+              </span>
               <button
                 onClick={() => handleLike(entry.walletAddress)}
                 className="flex items-center gap-1 text-pink-500 hover:text-pink-400 transition"
@@ -131,8 +143,6 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
                 <Heart className="w-4 h-4 fill-pink-500" />
                 <span>{likes[entry.walletAddress?.toLowerCase()] || 0}</span>
               </button>
-
-              {/* Share */}
               <button
                 onClick={() => shareScore(entry.username, entry.score)}
                 className="text-blue-400 hover:text-blue-300"
@@ -144,16 +154,20 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
         ))}
       </div>
 
-      {/* Engagement Call-to-Action */}
+      {/* Call-to-Action */}
       <div
-        className={`mt-8 p-4 rounded-xl text-center shadow-lg ${
-          isDark ? "bg-[var(--gradient-primary)]" : "bg-gradient-nullproof"
+        className={`mt-8 p-4 rounded-xl text-center shadow-lg border ${
+          isDark
+            ? "bg-transparent border-[var(--glass-border)]"
+            : "bg-white/90 border-gray-100"
         }`}
       >
-        <p className="font-bold text-white">
-          Top 3 will earn exclusive $CRT tokens at launch 🚀
+        <p className="font-bold">
+          Top 3 will earn exclusive $CRT tokens at launch
         </p>
-        <p className="text-sm text-white/80">Keep grinding, degen. Make it to the top!</p>
+        <p className="text-sm">
+          Keep grinding, degen. Make it to the top!
+        </p>
       </div>
     </div>
   );

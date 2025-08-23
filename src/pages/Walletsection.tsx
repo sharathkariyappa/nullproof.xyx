@@ -22,21 +22,32 @@ export default function Walletsection({ isDark }: { isDark: boolean }) {
     return () => clearInterval(timer);
   }, []);
 
+  const titleClass = isDark
+    ? "text-gradient-nullproof"
+    : "text-black";
+  const timerValueClass = isDark
+    ? "text-gradient-nullproof glow-aqua"
+    : "text-black font-bold";
+
   return (
     <div className={`${isDark ? "dark" : ""} flex flex-col items-center gap-6 py-10 px-6`}>
-      <h2
-        className="text-2xl font-bold text-gradient-nullproof animate-title-glow"
-      >
-        🚀 Preparing for Launch
+      {/* Title */}
+      <h2 className={`text-2xl font-bold ${titleClass}`}>
+        Preparing for Launch
       </h2>
 
+      {/* Countdown Timer */}
       <div className="flex gap-4 text-center">
         {Object.entries(timeLeft).map(([label, value]) => (
           <div
             key={label}
-            className="backdrop-blur-lg rounded-xl shadow-lg border border-[var(--glass-border)] px-6 py-4 bg-[var(--glass-bg)] hover:bg-[var(--glass-hover)] transition-all duration-300"
+            className={`rounded-xl shadow-lg border px-6 py-4 transition-all duration-300 hover:bg-[var(--glass-hover)] 
+              ${isDark
+                ? "bg-transparent border-gray-800/50 border-[var(--glass-border)]"
+                : "bg-white/90 border-gray-100"
+              }`}
           >
-            <div className="text-3xl font-bold text-gradient-nullproof glow-aqua">
+            <div className={`text-3xl font-bold ${timerValueClass}`}>
               {value}
             </div>
             <div className="text-xs uppercase text-[var(--muted-foreground)] tracking-wider">
@@ -46,9 +57,10 @@ export default function Walletsection({ isDark }: { isDark: boolean }) {
         ))}
       </div>
 
+      {/* Footer Text */}
       <p className="text-sm text-[var(--muted-foreground)]">
         Mark your calendars —{" "}
-        <span className="font-semibold text-gradient-nullproof">Sept 1, 2025</span>
+        <span className={`font-semibold ${titleClass}`}>Sept 1, 2025</span>
       </p>
     </div>
   );

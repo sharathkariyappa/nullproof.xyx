@@ -36,7 +36,7 @@ const Navigation: React.FC<HeaderProps> = ({
   requestAccountSelection,
 }) => {
   return (
-    <header className={`h-20 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-xl border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} flex items-center justify-between px-4 lg:px-8 relative z-[100]`}>
+    <header className={`h-20 ${isDark ? 'bg-transparent' : 'bg-white/95'} border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} flex items-center justify-between px-4 lg:px-8 relative z-[100]`}>
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-4">
           {/* Mobile menu button */}
@@ -67,12 +67,12 @@ const Navigation: React.FC<HeaderProps> = ({
         </button>
         
         {/* Notifications */}
-        <button className="hover:bg-gray-800/50 rounded-xl h-12 w-12 border border-transparent hover:border-blue-500/20 relative group flex items-center justify-center transition-all">
+        {/* <button className="hover:bg-gray-800/50 rounded-xl h-12 w-12 border border-transparent hover:border-blue-500/20 relative group flex items-center justify-center transition-all">
           <Bell className="w-5 h-5" />
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
           </div>
-        </button>
+        </button> */}
         
         {/* Wallet Buttons */}
         <div className="flex items-center gap-2">
@@ -80,13 +80,13 @@ const Navigation: React.FC<HeaderProps> = ({
             <>
               <button
                 onClick={requestAccountSelection}
-                className={`${isDark ? 'bg-gray-800/50 border-blue-500/40 text-blue-400 hover:bg-blue-500/10' : 'bg-gray-100 border-blue-500/40 text-blue-600 hover:bg-blue-50'} font-medium px-4 py-2 rounded-lg border transition-all text-sm`}
+                className={`${isDark ? 'bg-gradient-to-r from-primary to-accent border-blue-500/40 text-primary-foreground hover:bg-blue-500/10' : 'bg-gradient-to-r from-primary to-accent border-blue-500/40 text-primary-foreground hover:bg-blue-50'} font-medium px-4 py-2 rounded-lg text-sm`}
               >
                 Switch
               </button>
               <button
                 onClick={disconnectWallet}
-                className={`${isDark ? 'bg-gray-800/50 border-red-500/40 text-red-400 hover:bg-red-500/10' : 'bg-gray-100 border-red-500/40 text-red-600 hover:bg-red-50'} font-medium px-4 py-2 rounded-lg border transition-all text-sm`}
+                className={`${isDark ? 'bg-destructive text-destructive-foreground hover:bg-destructive/80' : 'bg-destructive text-destructive-foreground hover:bg-destructive/80'} font-medium px-4 py-2 rounded-lg transition-all text-sm`}
               >
                 Disconnect
               </button>
@@ -95,7 +95,7 @@ const Navigation: React.FC<HeaderProps> = ({
             <button
               onClick={connectWallet}
               disabled={isConnecting}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-purple-500/25 transition-all flex items-center gap-2"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed font-medium px-6 py-2 rounded-lg shadow-lg transition-all flex items-center gap-2"
             >
               {isConnecting ? (
                 <>

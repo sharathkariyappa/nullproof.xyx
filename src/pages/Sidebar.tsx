@@ -51,13 +51,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const getNavCls = (active: boolean) =>
     active 
-      ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-500 border-blue-500/40 shadow-lg" 
-      : "hover:bg-gray-800/50 hover:border-blue-500/20 text-gray-400 hover:text-white border-transparent";
+      ? "bg-gradient-to-r from-primary to-accent text-primary-foreground" 
+      : "hover:bg-gray-800/50 hover:border-transparent text-gray-400 hover:text-white border-transparent";
 
   return (
     <div className={`fixed inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-72'} w-72`}>
       {/* Make the whole sidebar a full-height flex column */}
-      <aside className={`h-screen flex flex-col ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-xl border-r ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+      <aside className={`h-screen flex flex-col ${isDark ? 'bg-transparent' : 'bg-white/95'} border-r ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
         
         {/* Logo Section */}
         <div className={`p-6 border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} ${sidebarCollapsed ? 'px-4 py-6' : 'px-6 py-6'} transition-all duration-300`}>
@@ -84,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <li key={item.title}>
                 <button
                   onClick={() => handleItemClick(item.url)}
-                  className={`w-full group relative flex items-center rounded-xl border transition-all duration-300 ${sidebarCollapsed ? 'justify-center p-3' : 'gap-3 px-4 py-3'} ${getNavCls(isActive(item.url))}`}
+                  className={`w-full group relative flex items-center rounded-xl transition-all duration-300 ${sidebarCollapsed ? 'justify-center p-3' : 'gap-3 px-4 py-3'} ${getNavCls(isActive(item.url))}`}
                   aria-label={item.title}
                 >
                   <item.icon className="w-5 h-5 flex-shrink-0 transition-transform group-hover:scale-110" />
@@ -93,12 +93,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                       {item.title}
                     </span>
                   )}
-                  {!sidebarCollapsed && isActive(item.url) && (
+                  {/* {!sidebarCollapsed && isActive(item.url) && (
                     <span className="ml-auto w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-                  )}
-                  {sidebarCollapsed && isActive(item.url) && (
+                  )} */}
+                  {/* {sidebarCollapsed && isActive(item.url) && (
                     <span className={`absolute -right-1 -top-1 w-3 h-3 bg-purple-500 rounded-full animate-pulse border-2 ${isDark ? 'border-gray-900' : 'border-white'}`}></span>
-                  )}
+                  )} */}
                 </button>
               </li>
             ))}

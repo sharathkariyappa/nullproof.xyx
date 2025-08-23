@@ -259,7 +259,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
   };
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-gray-950 text-gray-100' : 'bg-gray-50 text-gray-900'} relative overflow-hidden`}>
+    <div className={`${isDark ? 'bg-transparent text-gray-100' : 'bg-gray-50 text-gray-900'} relative overflow-hidden`}>
       {/* Floating meme stickers */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute top-10 left-10 text-2xl animate-bounce">🚀</div>
@@ -273,14 +273,14 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
       <div className="relative z-10 max-w-4xl mx-auto p-4">
         {/* Compact Header */}
         <div className="text-center py-4 mb-4">
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 ${isDark ? 'bg-gray-900/50 border-gray-700/50' : 'bg-white/80 border-gray-200'} rounded-full border backdrop-blur-sm text-sm`}>
+          {/* <div className={`inline-flex items-center gap-2 px-3 py-1.5 ${isDark ? 'bg-gray-900/50 border-gray-700/50' : 'bg-white/80 border-gray-200'} rounded-full border backdrop-blur-sm text-sm`}>
             <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
             <span className={`${isDark ? 'text-gray-400' : 'text-gray-600'} font-mono`}>nullproof</span>
             <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-          </div>
+          </div> */}
           
-          <h1 className={`text-3xl font-black mt-2 mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            degen score checker
+          <h1 className={`text-3xl font-black mt-2 mb-1 ${isDark ? 'text-gradient-nullproof' : 'text-gray-900'}`}>
+            Degen score checker
           </h1>
           
           <p className={`text-base ${isDark ? 'text-gray-400' : 'text-gray-600'} font-mono transition-all duration-500`}>
@@ -293,7 +293,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
           
           {/* Main Score Card */}
           <div className="lg:col-span-2">
-            <div className={`${isDark ? 'bg-gray-900/70 border-gray-800/50' : 'bg-white/90 border-gray-200'} backdrop-blur-xl border rounded-xl p-4 shadow-xl`}>
+            <div className={`${isDark ? 'bg-transparent border-gray-800/50' : 'bg-white/90 border-gray-200'} border rounded-xl p-4 shadow-xl`}>
               
               {/* Header */}
               <div className="flex items-center gap-3 mb-4">
@@ -319,8 +319,8 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
               {/* GitHub Status */}
               <div className={`p-3 rounded-lg border mb-4 ${
                 githubUser 
-                  ? isDark ? 'bg-gray-800/30 border-gray-700/50' : 'bg-green-50/50 border-green-200/50'
-                  : isDark ? 'bg-gray-800/50 border-gray-700/70' : 'bg-gray-100/50 border-gray-300/50'
+                  ? isDark ? 'bg-transparent border-gray-700/50' : 'bg-green-50/50 border-green-200/50'
+                  : isDark ? 'bg-transparent border-gray-700/70' : 'bg-gray-100/50 border-gray-300/50'
               }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -349,8 +349,8 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
                   onClick={connectGitHub}
                   className={`group p-2.5 rounded-lg font-semibold transition-all duration-300 text-sm ${
                     githubUser 
-                      ? isDark ? 'bg-gray-800/30 text-gray-500 cursor-not-allowed border border-gray-800' : 'bg-gray-200/50 text-gray-400 cursor-not-allowed border border-gray-300'
-                      : isDark ? 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 hover:border-gray-600' : 'bg-gray-900 hover:bg-gray-800 text-white border border-gray-700 hover:border-gray-600'
+                      ? isDark ? 'bg-gradient-to-r from-primary to-accent text-primary-foreground cursor-not-allowed' : 'bg-gradient-to-r from-primary to-accent text-primary-foreground cursor-not-allowed'
+                      : isDark ? 'bg-gradient-to-r from-primary to-accent text-primary-foreground hover:border-gray-600' : 'bg-gradient-to-r from-primary to-accent text-primary-foreground hover:border-gray-600'
                   }`}
                   disabled={githubUser}
                 >
@@ -365,7 +365,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
                 <button
                   onClick={fetchDegenScore}
                   disabled={isLoading || !githubUser}
-                  className={`group ${isDark ? 'bg-white hover:bg-gray-100 text-gray-900' : 'bg-gray-900 hover:bg-gray-800 text-white'} font-semibold p-2.5 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm`}
+                  className={`group ${isDark ? 'bg-gradient-to-r from-primary to-accent text-primary-foreground' : 'bg-gradient-to-r from-primary to-accent text-primary-foreground'} font-semibold p-2.5 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm`}
                 >
                   <div className="flex items-center justify-center gap-2">
                     {isLoading ? (
@@ -452,7 +452,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
           {/* Leaderboard Sidebar */}
           <div className="space-y-4">
             {/* Leaderboard */}
-            <div className={`${isDark ? 'bg-gray-900/70 border-gray-800/50' : 'bg-white/90 border-gray-200'} backdrop-blur-xl border rounded-xl p-4 shadow-xl`}>
+            <div className={`${isDark ? 'bg-transparent border-gray-800/50' : 'bg-white/90 border-gray-200'} border rounded-xl p-4 shadow-xl`}>
               <div className="flex items-center gap-2 mb-3">
                 <Trophy className="w-4 h-4 text-yellow-400" />
                 <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -462,7 +462,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
               
               <div className="space-y-2">
                 {leaderboard.slice(0, 3).map((entry, index) => (
-                  <div key={entry.username} className={`flex items-center gap-2 p-2 rounded-lg ${isDark ? 'bg-gray-800/30' : 'bg-gray-50'}`}>
+                  <div key={entry.username} className={`flex items-center gap-2 p-2 rounded-lg ${isDark ? 'bg-gray-900/70 border-gray-800/50' : 'bg-white/90 border-gray-200'}`}>
                     <div className="text-xs font-mono text-yellow-400">#{index + 1}</div>
                     {entry.avatar ? (
                       <img src={entry.avatar} alt={entry.username} className="w-5 h-5 rounded-full" />
@@ -485,7 +485,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
             </div>
 
             {/* Real-time Stats */}
-            <div className={`${isDark ? 'bg-gray-900/70 border-gray-800/50' : 'bg-white/90 border-gray-200'} backdrop-blur-xl border rounded-xl p-4 shadow-xl`}>
+            <div className={`${isDark ? 'bg-transparent border-gray-800/50' : 'bg-white/90 border-gray-200'} border rounded-xl p-4 shadow-xl`}>
               <div className="text-center">
                 <div className="text-2xl mb-2">🐸</div>
                 <p className={`font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'} text-xs mb-3`}>

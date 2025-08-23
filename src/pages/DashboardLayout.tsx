@@ -49,7 +49,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   formatAddress,
 }) => {
   return (
-    <div className={`min-h-screen flex w-full ${isDark ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen flex w-full ${isDark ? 'bg-transparent text-white' : 'bg-gray-50 text-gray-900'}`}>
       <Sidebar
         isDark={isDark}
         sidebarOpen={sidebarOpen}
