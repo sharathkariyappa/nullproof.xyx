@@ -438,7 +438,7 @@ const DashboardHome = ({ isDark, walletAddress }: { isDark: boolean; walletAddre
                   <div className="text-center">
                     <button
                       onClick={shareOnTwitter}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors duration-200 text-sm"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold rounded-lg transition-colors duration-200 text-sm"
                     >
                       <Twitter className="w-3 h-3" />
                       <span className="font-mono text-xs">share</span>
