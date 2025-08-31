@@ -152,7 +152,7 @@ const Dashboard = () => {
   const renderPageContent = () => {
     switch (activeItem) {
       case "/dashboard/wallet":
-        return <Walletsection isDark={isDark} />;
+        return <Walletsection isDark={isDark} myWallet={walletAddress}/>;
       case "/dashboard/leaderboard":
         return <LeaderboardPage isDark={isDark} myWallet={walletAddress} />;
       case "/dashboard/dao":

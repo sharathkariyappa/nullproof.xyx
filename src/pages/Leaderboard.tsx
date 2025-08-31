@@ -5,6 +5,8 @@ import { toast } from "@/hooks/use-toast";
 export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean; myWallet: string }) {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [likes, setLikes] = useState<Record<string, number>>({});
+  const [loadingWallet, setLoadingWallet] = useState<string | null>(null);
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
@@ -42,25 +44,93 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
       });
       return;
     }
-
+  
+    setLoadingWallet(targetWallet);
+  
     try {
-      const res = await fetch(`${backendUrl}/api/likes`, {
+      // 1️⃣ Check if like is possible (prevent duplicates)
+      const checkRes = await fetch(
+        `${backendUrl}/api/likes/check?targetWallet=${targetWallet.toLowerCase()}&likerWallet=${myWallet.toLowerCase()}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      const checkData = await checkRes.json();
+  
+      if (!checkRes.ok) {
+        toast({
+          title: "Like not allowed",
+          description: checkData.error || "You can't like this user right now.",
+          variant: "destructive",
+        });
+        return;
+      }
+  
+      // 🚨 Stop if already liked
+      if (checkData.liked) {
+        toast({
+          title: "Already liked",
+          description: `You have already liked ${targetWallet.slice(0, 6)}...${targetWallet.slice(-4)}.`,
+          variant: "destructive",
+        });
+        return;
+      }
+  
+      // 2️⃣ Burn CRT only if like check passed
+      const burnRes = await fetch(`${backendUrl}/api/contract/burn/likes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          address: myWallet.toLowerCase(),
+          amount: "0.5",
+        }),
+      });
+  
+      const burnData = await burnRes.json();
+      if (!burnRes.ok) {
+        toast({
+          title: "Like failed",
+          description: burnData.error || "Not enough balance to like.",
+          variant: "destructive",
+        });
+        return;
+      }
+  
+      // 3️⃣ Finalize like
+      const likeRes = await fetch(`${backendUrl}/api/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           targetWallet: targetWallet.toLowerCase(),
-          likerWallet: myWallet.toLowerCase()
-        })
+          likerWallet: myWallet.toLowerCase(),
+        }),
       });
-
-      if (res.ok) {
+  
+      const likeData = await likeRes.json();
+      if (likeRes.ok) {
+        toast({
+          title: "Liked!",
+          description: `You liked ${targetWallet.slice(0, 6)}...${targetWallet.slice(-4)}`,
+        });
         loadLeaderboard();
       } else {
-        const error = await res.json();
-        alert(error.error);
+        toast({
+          title: "Like failed",
+          description: likeData.error || "Unknown error during liking.",
+          variant: "destructive",
+        });
       }
     } catch (err) {
       console.error("Error liking user:", err);
+      toast({
+        title: "Error",
+        description: "Something went wrong while liking the user.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoadingWallet(null);
     }
   };
 
@@ -138,9 +208,14 @@ export default function LeaderboardPage({ isDark, myWallet }: { isDark: boolean;
               </span>
               <button
                 onClick={() => handleLike(entry.walletAddress)}
-                className="flex items-center gap-1 text-pink-500 hover:text-pink-400 transition"
+                disabled={loadingWallet === entry.walletAddress}
+                className="flex items-center gap-1 text-pink-500 hover:text-pink-400 transition disabled:opacity-50"
               >
-                <Heart className="w-4 h-4 fill-pink-500" />
+                {loadingWallet === entry.walletAddress ? (
+                  <Heart className="w-4 h-4 animate-ping fill-pink-400" />
+                ) : (
+                  <Heart className="w-4 h-4 fill-pink-500" />
+                )}
                 <span>{likes[entry.walletAddress?.toLowerCase()] || 0}</span>
               </button>
               <button

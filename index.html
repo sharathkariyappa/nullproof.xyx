@@ -404,18 +404,18 @@
   function handleRouteChange() {
     const heroSection = document.querySelector('.hero-section');
     const matrixRain = document.getElementById('matrixRain');
-    // const quantum = document.getElementById('neuralNetwork');
+    const quantum = document.getElementById('neuralNetwork');
     const currentPath = window.location.pathname;
     
     if (heroSection && matrixRain) {
       if (currentPath === '/' || currentPath === '' || currentPath === '/index.html') {
         heroSection.style.display = 'flex';
         matrixRain.style.display = 'block';
-        // quantum.style.display = 'block';
+        quantum.style.display = 'block';
       } else {
         heroSection.style.display = 'none';
         matrixRain.style.display = 'none';
-        // quantum.style.display = 'none';
+        quantum.style.display = 'none';
       }
     }
   }
