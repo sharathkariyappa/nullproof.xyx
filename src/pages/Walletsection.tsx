@@ -119,7 +119,7 @@ export default function Walletsection({
       }`}>
         <h3 className={`text-lg font-semibold mb-4 ${titleClass}`}>Wallet Activity</h3>
 
-        {loading ? (
+        {loading && myWallet? (
           <p className={`text-sm ${titleClass}`}>Loading activity...</p>
         ) : (
           <>
