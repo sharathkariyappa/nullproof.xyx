@@ -46,7 +46,7 @@ export default function FAQPage() {
         <Accordion type="single" collapsible>
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <Card className="bg-zinc-900/50 rounded-2xl mb-4">
+              <Card className="bg-transparent rounded-2xl mb-4">
                 <CardContent className="flex items-center gap-4 p-4">
                   {faq.icon}
                   <div className="flex-1">
