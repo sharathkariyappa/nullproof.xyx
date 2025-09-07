@@ -39,8 +39,8 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen w-full bg-transparent text-white p-8">
-      <h1 className="text-3xl font-bold text-center mb-8 text-[rgba(0,255,217,1)]">
-        Frequently Asked Questions
+      <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-center">
+        Frequently Asked <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Questions</span>
       </h1>
       <div className="max-w-3xl mx-auto">
         <Accordion type="single" collapsible>

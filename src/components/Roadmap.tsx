@@ -6,26 +6,26 @@ const Roadmap = () => {
   const roadmapData = [
     {
       quarter: "Q3 2025",
-      status: "in-progress",
+      status: "completed",
       title: "MVP & Virtuals Launch",
       items: [
         "MVP ready for demo & use",
         "ZK-proof verification",
-        "Basic badge minting",
-        "Sepolia testnet & Base Testnet",
-        "Virtuals Demo Day at Hack2Launch",
+        "Verifiable credentials",
+        "Degen score & analytics",
+        "Base Testnet",
       ]
     },
     {
       quarter: "Q4 2025",
-      status: "planned",
+      status: "in-progress",
       title: "DAO & Governance Rollout",
       items: [
         "Governance module & voting",
+        "Badge Minting",
         "Proposals for badge types & upgrades",
         "Partnerships with DAOs & dApps",
-        "Grant platform integrations",
-        "Ambassador & bounty programs",
+        "REST API for integrations",
       ]
     },
     {
@@ -34,7 +34,6 @@ const Roadmap = () => {
       title: "SDK, API, & Custom Badge Layer",
       items: [
         "Plug-and-play SDK",
-        "REST + GraphQL APIs",
         "Custom badge marketplace",
         "DAO-curated templates",
       ]
